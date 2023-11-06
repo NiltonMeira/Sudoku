@@ -3,10 +3,19 @@
 #include <time.h>
 
 
-int main()
-{
+int **create_matrix()
+{   
+  // allocate Rows rows, each row is a pointer to int
+    int **initial_matrix = (int **)malloc(3 * sizeof(int *)); 
+    int row;
+
+    // for each row allocate Cols ints
+    for (row = 0; row < 3; row++) {
+        initial_matrix[row] = (int *)malloc(3 * sizeof(int));
+    }
+
+
     int numbers[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    int initial_matrix[3][3];
 
     srand(time(NULL));
 
@@ -16,7 +25,6 @@ int main()
         {   
             loop: ;
             int aleatory_number = (rand() % 9) + 1;
-            printf("%d \n", aleatory_number);
             int check = 0;
         
 
@@ -35,14 +43,21 @@ int main()
                 goto loop;
             }
         }
-    }
+    }  
 
-        for (int i = 0; i < 3; i++)
+
+    return initial_matrix;
+}
+
+int main()
+{
+    int **teste = create_matrix();
+    for (int i = 0; i < 3; i++)
         {
             printf("\n");
             for (int j = 0; j < 3; j++)
             {
-                printf("%d", initial_matrix[i][j]);
+                printf("%d", teste[i][j]);
             }
         }
 }
