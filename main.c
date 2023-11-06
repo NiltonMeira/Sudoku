@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+
 int main()
 {
     int numbers[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -16,6 +17,8 @@ int main()
             loop: ;
             int aleatory_number = (rand() % 9) + 1;
             printf("%d \n", aleatory_number);
+            int check = 0;
+        
 
             for (int k = 0; k < 9; k++)
             {
@@ -23,12 +26,13 @@ int main()
                 {
                     initial_matrix[i][j] = aleatory_number;
                     numbers[aleatory_number - 1] = 10;
+                    check = 1;
                 }
-                else
-                {
-                    goto loop;
-                }
-            
+            }
+
+            if (check == 0)
+            {
+                goto loop;
             }
         }
     }
