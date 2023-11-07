@@ -49,15 +49,28 @@ int **create_matrix()
     return initial_matrix;
 }
 
+void print_matrix()
+{   
+   int **matrix = create_matrix();
+    for(int i=0; i<3; i++)
+    {   
+        printf("\n");
+        for(int j=0; j<3; j++)
+        {
+            printf("%d", matrix[i][j]);
+        }
+    }
+}
+
 int main()
 {
-    int **teste = create_matrix();
-    for (int i = 0; i < 3; i++)
-        {
-            printf("\n");
-            for (int j = 0; j < 3; j++)
-            {
-                printf("%d", teste[i][j]);
-            }
-        }
+   
+    for (int i=0;i<9;i++)
+    {
+        printf("\n");
+        print_matrix();
+    }
 }
+      
+    
+  
