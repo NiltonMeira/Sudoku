@@ -17,7 +17,6 @@ int **create_matrix()
 
     int numbers[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-    srand(time(NULL));
 
     for (int i = 0; i < 3; i++)
     {
@@ -54,10 +53,11 @@ void print_matrix()
    int **matrix = create_matrix();
     for(int i=0; i<3; i++)
     {   
-        printf("\n");
+        printf("  ");
         for(int j=0; j<3; j++)
         {
-            printf("%d", matrix[i][j]);
+            printf("%d ", matrix[i][j]);
+            
         }
     }
 }
@@ -65,10 +65,16 @@ void print_matrix()
 int main()
 {
    
-    for (int i=0;i<9;i++)
-    {
-        printf("\n");
+    srand(time(NULL));
+
+    for (int i=0;i<3;i++)
+    {   
+       for (int i=0;i<3;i++)
+        {   
         print_matrix();
+        printf("\n");
+        }
+        printf("\n");
     }
 }
       
