@@ -110,7 +110,11 @@ int main() {
               if(j % 3 == 0) {
                 printf("  ");
               }
+              if(rand() % 2 == 0) {
+                printf("--");
+              } else {
                 printf("%d ", board[i][j]);
+              }
             }
             
             printf("\n");
