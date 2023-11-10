@@ -103,20 +103,20 @@ int main() {
     if (generateSudoku(board)) {
         // Printing the resulting Sudoku grid
         for (int i = 0; i < SIZE; i++) {
-            if(i % 3 == 0) {
-              printf("\n");
+            if (i % 3 == 0) {
+                printf("\n");
             }
             for (int j = 0; j < SIZE; j++) {
-              if(j % 3 == 0) {
-                printf("  ");
-              }
-              if(rand() % 2 == 0) {
-                printf("--");
-              } else {
-                printf("%d ", board[i][j]);
-              }
+                if (j % 3 == 0) {
+                    printf("  ");
+                }
+                if (rand() % 2 == 0) {
+                    printf("--");
+                } else {
+                    printf("%d ", board[i][j]);
+                }
             }
-            
+
             printf("\n");
         }
     } else {
