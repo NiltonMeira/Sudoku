@@ -99,6 +99,7 @@ int findUnassignedLocation(int board[SIZE][SIZE], int *row, int *col) {
 
 int main() {
     int board[SIZE][SIZE];
+    int atual_row, atual_colun,number;
 
     if (generateSudoku(board)) {
         // Printing the resulting Sudoku grid
@@ -122,6 +123,29 @@ int main() {
     } else {
         printf("No solution found.\n");
     }
+
+    printf("Row: ");
+    scanf("%d", &atual_row);
+    printf("Colun: ");
+    scanf("%d", &atual_colun);
+    printf("Number: ");
+    scanf("%d", &atual_row);
+
+    board[atual_row][atual_colun] = number;
+
+     for (int i = 0; i < SIZE; i++) 
+     {
+            if (i % 3 == 0) {
+                printf("\n");
+            }
+            for (int j = 0; j < SIZE; j++) {
+                
+                printf("%d ", board[i][j]);
+                }
+            printf("\n");   
+            }
+       
+     
 
     return 0;
 }
