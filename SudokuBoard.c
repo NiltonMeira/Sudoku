@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 
 #define SIZE 9
+
+int hidden_matrix[SIZE][SIZE];
 
 // Function to check if a number is safe to place in the grid
 int isSafe(int board[SIZE][SIZE], int row, int col, int num) {
@@ -97,31 +100,87 @@ int findUnassignedLocation(int board[SIZE][SIZE], int *row, int *col) {
     return 0; // No unassigned location exists
 }
 
-int main() {
-    int board[SIZE][SIZE];
+void startGame(int board[SIZE][SIZE], bool has_palyed, int row_pos, int col_pos, int my_num) {
+    int border = 219;
 
     if (generateSudoku(board)) {
         // Printing the resulting Sudoku grid
         for (int i = 0; i < SIZE; i++) {
+            //printf("%c", border);
             if (i % 3 == 0) {
+                for(int k = 0; k < 26; k++) {
+                    printf("%c", border);
+                }
                 printf("\n");
             }
             for (int j = 0; j < SIZE; j++) {
                 if (j % 3 == 0) {
-                    printf("  ");
+                    printf("%c%c", border,border);
                 }
                 if (rand() % 2 == 0) {
-                    printf("--");
+                    if (has_palyed == false) {
+                        printf("[]");
+                        hidden_matrix[i][j] = 0;
+                    } else {
+                        if (board[i][j] == board[row_pos][col_pos]){
+                            printf("%d ", my_num);
+                        } else {
+                            printf("[]");
+                            hidden_matrix[i][j] = 0;
+                        }
+                    }
+                    
                 } else {
                     printf("%d ", board[i][j]);
+                    hidden_matrix[i][j] = board[i][j];
                 }
             }
-
+            printf("%c%c", border,border);
             printf("\n");
+        }
+        for(int k = 0; k < 26; k++) {
+            printf("%c", border);
         }
     } else {
         printf("No solution found.\n");
     }
+}
 
+void printMatrix(int row_pos, int col_pos, int my_num) {
+    if (hidden_matrix[row_pos][col_pos] == 0) {
+        hidden_matrix[row_pos][col_pos] = my_num;
+    }
+    for(int x = 0 ; x < 9 ; x++) {
+        printf(" ");
+        for(int y = 0 ; y < 9 ; y++){
+            printf("%d ", hidden_matrix[x][y]);
+        }
+        printf("\n");
+    }
+}
+
+void playGame() {
+    int board[SIZE][SIZE];
+    bool has_played = false;
+    int my_num, row_pos, col_pos;
+    startGame(board, has_played, row_pos, col_pos, my_num);
+
+    printf("\n\n\n\n");
+
+    for (int i = 0; i < 81; i++) {
+        printf("\nDigite a linha: ");
+        scanf("%i", &row_pos);
+        printf("\nDigite a coluna: ");
+        scanf("%i", &col_pos);
+        printf("\nDigite o numero: ");
+        scanf("%i", &my_num);
+        printMatrix(row_pos-1, col_pos-1, my_num);
+    }
+    has_played = true;
+    printf("\n\n\n");
+}
+
+int main() {
+    playGame();
     return 0;
 }
