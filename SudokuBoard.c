@@ -192,20 +192,20 @@ void playGame() {
         while (1)
         {
             printf("\nDigite a linha: ");
-            scanf("%i", &row_pos);
-            if (row_pos > 9 || row_pos < 0){
+            if (scanf("%i", &row_pos) != 1 || row_pos < 1 || row_pos > 9 || row_pos == NULL) {
+                printf("Numero invalido! ");
                 i--;
                 break;
             }
             printf("\nDigite a coluna: ");
-            scanf("%i", &col_pos);
-            if (col_pos > 9 || col_pos < 0){
+            if (scanf("%i", &col_pos) != 1 || col_pos < 1 || col_pos > 9 || col_pos == NULL) {
+                printf("Numero invalido! ");
                 i--;
                 break;
             }
             printf("\nDigite o numero: ");
-            scanf("%i", &my_num);
-            if (my_num > 9 || my_num < 0){
+            if (scanf("%i", &my_num) != 1 || my_num < 1 || my_num > 9 || my_num == NULL) {
+                printf("Numero invalido! ");
                 i--;
                 break;
             } else {
