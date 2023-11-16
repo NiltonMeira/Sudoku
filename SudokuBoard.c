@@ -5,10 +5,13 @@
 #define SIZE 9
 
 // Function to check if a number is safe to place in the grid
-int isSafe(int board[SIZE][SIZE], int row, int col, int num) {
+int isSafe(int board[SIZE][SIZE], int row, int col, int num)
+{
     // Check if the number is not already present in the row and column
-    for (int i = 0; i < SIZE; i++) {
-        if (board[row][i] == num || board[i][col] == num) {
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (board[row][i] == num || board[i][col] == num)
+        {
             return 0;
         }
     }
@@ -17,9 +20,12 @@ int isSafe(int board[SIZE][SIZE], int row, int col, int num) {
     int subgridSize = 3;
     int startRow = row - (row % subgridSize);
     int startCol = col - (col % subgridSize);
-    for (int i = 0; i < subgridSize; i++) {
-        for (int j = 0; j < subgridSize; j++) {
-            if (board[startRow + i][startCol + j] == num) {
+    for (int i = 0; i < subgridSize; i++)
+    {
+        for (int j = 0; j < subgridSize; j++)
+        {
+            if (board[startRow + i][startCol + j] == num)
+            {
                 return 0;
             }
         }
@@ -30,7 +36,8 @@ int isSafe(int board[SIZE][SIZE], int row, int col, int num) {
 }
 
 // Function to generate a random Sudoku grid
-int generateSudoku(int board[SIZE][SIZE]) {
+int generateSudoku(int board[SIZE][SIZE])
+{
     int row, col;
     int num;
     int unassigned = 0;
@@ -39,16 +46,21 @@ int generateSudoku(int board[SIZE][SIZE]) {
     srand(time(NULL));
 
     // Initialize the board with zeros
-    for (row = 0; row < SIZE; row++) {
-        for (col = 0; col < SIZE; col++) {
+    for (row = 0; row < SIZE; row++)
+    {
+        for (col = 0; col < SIZE; col++)
+        {
             board[row][col] = 0;
         }
     }
 
     // Fill the diagonal subgrids with random values
-    for (int subgrid = 0; subgrid < SIZE; subgrid += 3) {
-        for (num = 1; num <= SIZE; num++) {
-            do {
+    for (int subgrid = 0; subgrid < SIZE; subgrid += 3)
+    {
+        for (num = 1; num <= SIZE; num++)
+        {
+            do
+            {
                 row = subgrid + rand() % 3;
                 col = subgrid + rand() % 3;
             } while (board[row][col] != 0);
@@ -57,7 +69,8 @@ int generateSudoku(int board[SIZE][SIZE]) {
     }
 
     // Fill the remaining grid using a backtracking approach
-    if (!solveSudoku(board)) {
+    if (!solveSudoku(board))
+    {
         return 0;
     }
 
@@ -65,17 +78,22 @@ int generateSudoku(int board[SIZE][SIZE]) {
 }
 
 // Function to solve the Sudoku puzzle using backtracking
-int solveSudoku(int board[SIZE][SIZE]) {
+int solveSudoku(int board[SIZE][SIZE])
+{
     int row, col;
 
-    if (!findUnassignedLocation(board, &row, &col)) {
+    if (!findUnassignedLocation(board, &row, &col))
+    {
         return 1; // All cells are assigned, Sudoku is solved
     }
 
-    for (int num = 1; num <= SIZE; num++) {
-        if (isSafe(board, row, col, num)) {
+    for (int num = 1; num <= SIZE; num++)
+    {
+        if (isSafe(board, row, col, num))
+        {
             board[row][col] = num;
-            if (solveSudoku(board)) {
+            if (solveSudoku(board))
+            {
                 return 1;
             }
             board[row][col] = 0; // Unassign the cell if no solution found
@@ -86,10 +104,14 @@ int solveSudoku(int board[SIZE][SIZE]) {
 }
 
 // Function to find an unassigned location in the grid
-int findUnassignedLocation(int board[SIZE][SIZE], int *row, int *col) {
-    for (*row = 0; *row < SIZE; (*row)++) {
-        for (*col = 0; *col < SIZE; (*col)++) {
-            if (board[*row][*col] == 0) {
+int findUnassignedLocation(int board[SIZE][SIZE], int *row, int *col)
+{
+    for (*row = 0; *row < SIZE; (*row)++)
+    {
+        for (*col = 0; *col < SIZE; (*col)++)
+        {
+            if (board[*row][*col] == 0)
+            {
                 return 1; // Unassigned location found
             }
         }
@@ -97,30 +119,41 @@ int findUnassignedLocation(int board[SIZE][SIZE], int *row, int *col) {
     return 0; // No unassigned location exists
 }
 
-int main() {
+int main()
+{
     int board[SIZE][SIZE];
-    int atual_row, atual_colun,number;
+    int atual_row, atual_colun, number;
 
-    if (generateSudoku(board)) {
+    if (generateSudoku(board))
+    {
         // Printing the resulting Sudoku grid
-        for (int i = 0; i < SIZE; i++) {
-            if (i % 3 == 0) {
+        for (int i = 0; i < SIZE; i++)
+        {
+            if (i % 3 == 0)
+            {
                 printf("\n");
             }
-            for (int j = 0; j < SIZE; j++) {
-                if (j % 3 == 0) {
+            for (int j = 0; j < SIZE; j++)
+            {
+                if (j % 3 == 0)
+                {
                     printf("  ");
                 }
-                if (rand() % 2 == 0) {
+                if (rand() % 2 == 0)
+                {
                     printf("--");
-                } else {
+                }
+                else
+                {
                     printf("%d ", board[i][j]);
                 }
             }
 
             printf("\n");
         }
-    } else {
+    }
+    else
+    {
         printf("No solution found.\n");
     }
 
@@ -131,21 +164,21 @@ int main() {
     printf("Number: ");
     scanf("%d", &atual_row);
 
-    board[atual_row][atual_colun] = number;
+    board[atual_row - 1][atual_colun - 1] = number;
 
-     for (int i = 0; i < SIZE; i++) 
-     {
-            if (i % 3 == 0) {
-                printf("\n");
-            }
-            for (int j = 0; j < SIZE; j++) {
-                
-                printf("%d ", board[i][j]);
-                }
-            printf("\n");   
-            }
-       
-     
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (i % 3 == 0)
+        {
+            printf("\n");
+        }
+        for (int j = 0; j < SIZE; j++)
+        {
+
+            printf("%d ", board[i][j]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }
