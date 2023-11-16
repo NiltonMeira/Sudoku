@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include <windows.h>
+#include <ctype.h>
 
 #define SIZE 9
 
@@ -148,22 +149,35 @@ void startGame(int board[SIZE][SIZE], bool has_palyed, int row_pos, int col_pos,
 }
 
 void printMatrix(int row_pos, int col_pos, int my_num) {
+    int border = 219;
     system("cls");
     if (hidden_matrix[row_pos][col_pos] == 0) {
         hidden_matrix[row_pos][col_pos] = my_num;
     }
     for(int x = 0 ; x < 9 ; x++) {
         if (x % 3 == 0) {
+            for(int k = 0; k < 26; k++) {
+                printf("%c", border);
+            }
            printf("\n");
         }
         for(int y = 0 ; y < 9 ; y++){
             if (y % 3 == 0) {
-                printf(" ");
+                printf("%c%c", border,border);
             }
-            printf("%d ", hidden_matrix[x][y]);
+            if (hidden_matrix[x][y] == 0){
+                printf("[]");
+            } else {
+                printf("%d ", hidden_matrix[x][y]);
+            }
         }
+        printf("%c%c", border,border);
         printf("\n");
     }
+    for(int k = 0; k < 26; k++) {
+        printf("%c", border);
+    }
+    printf("\n");
 }
 
 void playGame() {
@@ -172,16 +186,33 @@ void playGame() {
     int my_num, row_pos, col_pos;
     startGame(board, has_played, row_pos, col_pos, my_num);
 
-    printf("\n\n\n\n");
+    printf("\n");
 
     for (int i = 0; i < 81; i++) {
-        printf("\nDigite a linha: ");
-        scanf("%i", &row_pos);
-        printf("\nDigite a coluna: ");
-        scanf("%i", &col_pos);
-        printf("\nDigite o numero: ");
-        scanf("%i", &my_num);
-        printMatrix(row_pos-1, col_pos-1, my_num);
+        while (1)
+        {
+            printf("\nDigite a linha: ");
+            scanf("%i", &row_pos);
+            if (row_pos > 9 || row_pos < 0){
+                i--;
+                break;
+            }
+            printf("\nDigite a coluna: ");
+            scanf("%i", &col_pos);
+            if (col_pos > 9 || col_pos < 0){
+                i--;
+                break;
+            }
+            printf("\nDigite o numero: ");
+            scanf("%i", &my_num);
+            if (my_num > 9 || my_num < 0){
+                i--;
+                break;
+            } else {
+                printMatrix(row_pos-1, col_pos-1, my_num);
+            }
+            break;
+        }
     }
     has_played = true;
     printf("\n\n\n");
