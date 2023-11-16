@@ -122,7 +122,9 @@ int findUnassignedLocation(int board[SIZE][SIZE], int *row, int *col)
 int main()
 {
     int board[SIZE][SIZE];
-    int atual_row, atual_colun, number;
+    int atual_row, atual_colun,number;
+    int play_board[SIZE][SIZE];
+
 
     if (generateSudoku(board))
     {
@@ -142,10 +144,10 @@ int main()
                 if (rand() % 2 == 0)
                 {
                     printf("--");
-                }
-                else
-                {
+                    play_board[i][j] = 10;
+                } else {
                     printf("%d ", board[i][j]);
+                    play_board[i][j] = board[i][j];
                 }
             }
 
@@ -156,29 +158,55 @@ int main()
     {
         printf("No solution found.\n");
     }
+    
+   
 
-    printf("Row: ");
-    scanf("%d", &atual_row);
-    printf("Colun: ");
-    scanf("%d", &atual_colun);
-    printf("Number: ");
-    scanf("%d", &atual_row);
-
-    board[atual_row - 1][atual_colun - 1] = number;
-
-    for (int i = 0; i < SIZE; i++)
+    
+    while (1)
     {
-        if (i % 3 == 0)
-        {
+         for (int i = 0; i < SIZE; i++) {
+            if (i % 3 == 0) {
+                printf("\n");
+            }
+            for (int j = 0; j < SIZE; j++) {
+                if (j % 3 == 0) {
+                    printf(" ");
+                }
+                if (play_board[i][j] == 10)
+                {
+                    printf("--");
+                }
+                else
+                {
+                     printf("%d ", play_board[i][j]);  
+                }
+                         
+            }
             printf("\n");
+            
         }
-        for (int j = 0; j < SIZE; j++)
-        {
 
-            printf("%d ", board[i][j]);
-        }
-        printf("\n");
+        printf("Row: ");
+        scanf("%d", &atual_row);
+        printf("Colun: ");
+        scanf("%d", &atual_colun);
+        printf("Number: ");
+        scanf("%d", &number);
+
+       
+        play_board[atual_row-1][atual_colun-1] = number;
+       
+        
+        
+       
+        
     }
+    
+    
+
+    
+       
+     
 
     return 0;
 }
