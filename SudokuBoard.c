@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include <windows.h>
 
 #define SIZE 9
 
@@ -147,12 +148,18 @@ void startGame(int board[SIZE][SIZE], bool has_palyed, int row_pos, int col_pos,
 }
 
 void printMatrix(int row_pos, int col_pos, int my_num) {
+    system("cls");
     if (hidden_matrix[row_pos][col_pos] == 0) {
         hidden_matrix[row_pos][col_pos] = my_num;
     }
     for(int x = 0 ; x < 9 ; x++) {
-        printf(" ");
+        if (x % 3 == 0) {
+           printf("\n");
+        }
         for(int y = 0 ; y < 9 ; y++){
+            if (y % 3 == 0) {
+                printf(" ");
+            }
             printf("%d ", hidden_matrix[x][y]);
         }
         printf("\n");
